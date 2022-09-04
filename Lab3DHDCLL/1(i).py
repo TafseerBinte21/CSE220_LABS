@@ -1,0 +1,155 @@
+class Node:
+    def __init__(self, element, next, prev):
+        self.element = element
+        self.next = next
+        self.prev = prev
+
+class DoublyList:
+    def __init__(self,a):
+        self.head = Node(None,None,None)
+        self.head.next=self.head.prev=self.head
+
+        for i in a:
+            newnode = Node(i,None,None)
+            self.head.prev.next = newnode
+            newnode.prev = self.head.prev
+            newnode.next = self.head
+            self.head.prev= newnode
+    
+    
+    def showList(self):
+        if self.head.next == self.head:
+            print("empty list")
+        else:
+            showing = "<-- Head -->"
+            show = self.head.next
+            while(show!=self.head):
+                showing += "<-- "+str(show.element)+" -->"
+                show =  show.next
+            print(showing)
+
+    def insertElement(self,newElement,index=None):
+        c = self.head.next
+        while c!=self.head:
+            if c.element==newElement:
+                print("element already exists in the list")
+                return
+            c =c.next
+        if index == None:
+                newnode = Node(newElement,None,None)
+                self.head.prev.next=newnode
+                newnode.prev=self.head.prev
+                newnode.next=self.head
+                self.head.prev=newnode
+                return
+        
+        size = 0  
+        i = self.head.next
+        while i!=self.head:
+            i=i.next
+            size+=1
+        if index < 0 or index > size-1:
+            print("inavlid index")
+            return
+        i = self.head.next
+        c = 0
+        while i!=self.head:
+            if c == index:
+                i = i.prev
+                newnode = Node(newElement,i.next,i)
+                i.next = newnode
+                newnode.next.prev = newnode
+                return
+            c+=1
+            i = i.next
+    
+    def remove(self,index):
+        size = 0  
+        i = self.head.next
+        while i!=self.head:
+               i=i.next
+               size+=1
+        if index <0 or index > size:
+            print("inavlid index")
+            return
+        else:
+            c = 0
+            i = self.head.next
+            while i!=self.head:
+                if c == index:
+                    i.prev.next = i.next
+                    i.next.prev = i.prev
+                    i = None
+                    return
+                i = i.next
+                c+=1
+
+    def removekey(self,deletekey):
+        c = self.head.next
+        while c!=self.head:
+            if c.element == deletekey:
+                    c.prev.next = c.next
+                    c.next.prev = c.prev
+                    c = None
+                    return deletekey
+            c = c.next
+        else:
+            print("deletekey is not found")
+            return deletekey
+    def insertBefore(self,element2,newElement):
+        i = self.head.next
+        while i!=self.head:
+            if i.element == element2:
+                newnode=Node(newElement,None,None)
+                i.prev.next = newnode
+                newnode.next = i
+                i.prev = newnode
+            i=i.next
+
+                
+
+
+print("Task-1") 
+print("Node class created and DoublyList class created")    
+
+print("Task-2")  
+
+print("DHDCLL is created")
+a = DoublyList([1,2,3])
+a.showList()
+print("==================")
+
+print("Show list created")
+a.showList()
+print("==================")
+
+a.showList()
+print("insert elemet is shown")
+a.insertElement(4)
+a.showList()
+print("==================")
+
+
+a.showList()
+print("insert element in given index is shown")
+a.insertElement(0,1)
+a.showList()
+print("==================")
+
+
+a.remove(0)
+a.showList()
+print("removing given index is shown")
+print("==================")
+
+
+a.removekey(1)
+a.showList()
+print("remove given deletekey is shown")
+print("==================")
+
+
+
+a.insertBefore(3,50)
+a.showList()
+

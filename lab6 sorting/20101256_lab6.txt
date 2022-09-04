@@ -1,0 +1,311 @@
+#Task 1
+def sortarrayRecursive(array,index,j):
+    
+    if index == len(array)-1 and j == len(array)-1:
+        return array
+
+    if index < len(array):
+        min = index
+
+        if j < len(array):
+            if array[j] < array[min]:
+                min = j
+
+            sortarrayRecursive(array,min,j+1)
+
+        if min != index:
+            array[min],array[index]=array[index],array[min]
+        
+        sortarrayRecursive(array,index+1,j+1)
+
+
+---Tester Code---
+array=[15,3,2,4,12,5]
+index = 0
+j=index+1
+sortarrayRecursive(array,index,j)
+for i in range(len(array)):
+    if i== len(array)-1:
+        print(array[i])
+    else:
+        print(array[i],end=",")
+
+
+#Task-2
+def insertionSortRecursive(array,i):
+    
+    if i == len(array):
+        return
+
+    if i < len(array):
+        j = i-1
+        sort = array[i]
+      
+        while j>=0 and array[j]>sort:
+           array[j+1]= array[j]
+
+           j-=1
+        array[j+1]= sort   
+        insertionSortRecursive(array,i+1)
+
+---Tester Code---
+array=[5,6,7,2]
+i=1
+insertionSortRecursive(array,i)
+for i in range(len(array)):
+    if i== len(array)-1:
+        print(array[i])
+    else:
+        print(array[i],end=",")
+  
+
+Task-3
+class Node:
+    def __init__(self, element, next):
+        self.element = element
+        self.next = next
+
+    
+class MyList:
+    def __init__(self,a= None):
+        if a==None:
+            self.head = None
+        elif isinstance(a,list):
+            head = None
+            tail = None
+            for i in a:
+                node1 = Node(i,None)
+                if head is None:
+                    head = node1
+                    tail = node1
+
+                else:
+                    tail.next = node1
+                    tail =tail.next
+            self.head = head
+            
+        elif isinstance(a,MyList):
+            n=a.head
+            head = None
+            tail = None
+            while n!=None:
+                
+                node1 = Node(n.element,None)
+                if head==None:
+                    head = node1
+                    tail = node1
+
+                else:
+                    tail.next = node1
+                    tail = node1
+                n=n.next
+            self.head = head
+
+
+    def showList(self):
+        if self.head== None:
+            print("empty list")
+        else:
+            showing = " "
+            show = self.head
+            while(show!=None):
+                showing += str(show.element)+">"
+                show =  show.next
+            print(showing)
+
+        
+def bubbleSort(self):
+    swap = True
+    while swap:
+        swap = False
+        sort = self.head
+        while sort.next!= None:
+            q = sort.next
+            if sort.element > q.element:
+                temp = sort.element
+                sort.element = q.element
+                q.element = temp
+                swap = True
+            sort = sort.next
+        
+---Tester Code---      
+a=[2,5,6,1,9]
+li = MyList(a)
+bubbleSort(li)
+li.showList()
+   
+
+Task-4
+class Node:
+    def __init__(self, element, next):
+        self.element = element
+        self.next = next
+
+    
+class MyList:
+    def __init__(self,a= None):
+        if a==None:
+            self.head = None
+        elif isinstance(a,list):
+            head = None
+            tail = None
+            for i in a:
+                node1 = Node(i,None)
+                if head is None:
+                    head = node1
+                    tail = node1
+
+                else:
+                    tail.next = node1
+                    tail =tail.next
+            self.head = head
+            
+        elif isinstance(a,MyList):
+            n=a.head
+            head = None
+            tail = None
+            while n!=None:
+                
+                node1 = Node(n.element,None)
+                if head==None:
+                    head = node1
+                    tail = node1
+
+                else:
+                    tail.next = node1
+                    tail = node1
+                n=n.next
+            self.head = head
+
+
+    def showList(self):
+        if self.head== None:
+            print("empty list")
+        else:
+            showing = " "
+            show = self.head
+            while(show!=None):
+                showing += str(show.element)+">"
+                show =  show.next
+            print(showing)
+
+
+def selectionSort(self):
+    i = self.head
+    while i.next.next!=None:
+        min = i
+        q = i.next
+        while q.next:
+            if q.element < min.element:
+                min = q
+            q = q.next
+
+        i.element, min.element = min.element,i.element
+        i = i.next
+
+---Tester Code---
+a=[2,5,6,1,9]
+li = MyList(a)
+selectionSort(li)
+li.showList()
+
+
+
+Task-5
+class Node:
+    def __init__(self, element, next, prev):
+        self.element = element
+        self.next = next
+        self.prev = prev
+
+class DoublyList:
+    def __init__(self,a):
+        self.head = Node(a[0],None,None)
+        tail = self.head
+
+        for i in range(1, len(a)):
+            newnode = Node(a[i],None,None)
+            newnode.prev = tail
+            tail.next = newnode
+            tail = tail.next
+            
+    
+    def showList(self):
+        if self.head==None:
+            print("empty list")
+        else:
+            showing = " "
+            show = self.head
+            while(show!=None):
+                showing += "<-- "+str(show.element)+" -->"
+                show =  show.next
+            print(showing)
+
+
+def insertionSort(self):
+    i = self.head.next
+    while i!=None:
+        sort = i
+        while i.prev.element > i.element:
+            i.element, i.prev.element = i.prev.element, i.element
+            
+            i = i.prev
+            if i.prev==None:
+                i=sort
+                break
+        i = i.next 
+
+---Tester Code---
+d=DoublyList([5,6,9,2,1])
+insertionSort(d)
+d.showList()
+
+
+Task-6
+def binarySearch(array,l,r,element):
+    if l<=r:
+        
+        midpoint = (l+r)//2
+        mid = array[midpoint]
+        
+        if element==mid:
+            return mid
+            
+        elif element > mid:
+            return binarySearch(array,midpoint+1,r,element)
+            
+        else:
+            return binarySearch(array,l,midpoint-1,element)
+
+    else:
+        return "element is not found"
+            
+---Tester Code---   
+a= [1,2,3,4,5]
+l = 0
+r = len(a)-1
+element = 15
+print(binarySearch(a,l,r,element))
+
+
+Task-7
+class fib:
+    a = []
+    def nthfibonacci(self,n,f=True):
+        if len(fib.a) < n and f:
+            fib.a = [0]*(n+1)
+
+        if fib.a[n] > 0:
+            return fib.a[n]
+        if n==0:
+            return 0
+        elif n==1:
+            return 1
+        else:
+            fib.a[n]=self.nthfibonacci(n-1,False)+self.nthfibonacci(n-2,False)
+            return fib.a[n]
+        
+---Tester Code---
+n=9
+f = fib()
+print(f.nthfibonacci(n))

@@ -1,0 +1,215 @@
+#1
+
+def shiftLeft(source,k):
+    for i in range(0,len(source)-k):
+        source[i]=source[i+k]
+    for i in range(len(source)-k):
+        source[i+k] = 0
+a = [10,20,30,40,50,60]
+shiftLeft(a,3)
+print(a)
+
+
+#2
+def rotateLeft(source,k):
+    for i in range(0,k):
+        firstt = source[0] 
+                                                                              
+        for j in range(0,len(source)-1):
+            source[j]=source[j+1]
+    
+        source[len(source)-1] = firstt
+    
+
+a = [10,20,30,40,50,60]
+rotateLeft(a,4)
+print(a)
+
+
+#3
+def remove(source,size,idx):
+    for i in range(len(source)):
+        i = idx
+        if i < size: 
+            source[i]=source[i+1]
+            idx+=1
+        else:
+            size-=1
+source=[10,20,30,40,50,0,0]
+remove(source,5,2)
+print(source)
+
+
+#4
+def removeAll(source,size,element):
+    c = 0
+    for i in range(len(source)):
+        if source[i] == element:
+            source[i] = 0
+            c += 1
+    i = 0
+    while i < size - c :
+        if source[i] == 0:
+            
+            for j in range (i,len(source)-1):
+                source[j] = source[j+1]
+            source[len(source)-1] = 0
+        else:
+            i += 1
+    return source
+
+source=[10,2,30,2,50,2,2,0,0]
+removeAll(source,7,2)
+
+print(source)
+
+
+#5
+def arraySplit(A):
+    leftPansum = 0
+    rightPansum = 0
+    
+    for i in range(len(A)):
+        leftPansum = 0
+        rightPansum = 0
+
+        for j in range(0,i+1):
+            leftPansum+=A[j]
+        for j in range(i+1, len(A)): 
+            rightPansum+= A[j]
+        
+        
+        if leftPansum == rightPansum:
+            return True
+            
+        
+    return False
+
+A = [1,1,1,2,1]
+print (arraySplit(A)) 
+
+
+#6
+def array(n):
+    li = [0]*n*n
+    a = 0
+    part = 1
+
+    for i in range(len(li)):
+        
+        if a >= n - part:
+            li[i] =n-a
+            
+        a+=1
+        if a==n:
+            a = 0
+            part+=1
+    print(li)
+    
+array(3)                
+
+
+#7
+def maxbunch(array):
+    c = 1
+    a = 1
+    for i in range(len(array)-1):
+        if array[i] == array[i+1]:
+            c +=1
+        else:
+            c=1
+
+    if c > a:
+        a = c
+
+    return a
+
+array = [1,1,2, 2, 1, 1,1,1]
+print (maxbunch(array)) 
+
+
+#8
+def repeatarray (array):
+    repeat = [None] * len(array)
+
+    for i in range(0, len(array)-1):
+        count = 1
+        sameValue = False
+        for k in range(i-1,-1,-1):
+            if array[i] == array[k]:
+                sameValue = True
+                break
+        if not sameValue:
+            for j in range(i+1, len(array)):
+                if(array[i] == array[j]):
+                    count = count + 1
+            if count != 1:
+                repeat[i] = count
+    for i in range(len(repeat)-1):
+        if repeat[i] != None:
+            for j in range(i+1,len(repeat)):
+              if repeat[i] == repeat[j]:
+                  return True
+    return False
+    
+array= [2,4,2,2,1,6,6,6,6,5,4]
+print(repeatarray(array))
+
+
+#circularArray1
+def palindromecircular(circular,start,size):
+   
+    len1 = len(circular)
+    ind=start
+
+    c = 0
+    for i in range(0,size//2):
+        if circular[ind] != circular[(size+start-1)%len1]:
+            c = 1
+            break
+        i+=1
+    
+    
+    if c==1:
+        print('False')
+    else:
+        print('True')
+             
+
+circular =  [20,10,0,0,0,10,20,30]
+start = 5
+size = 5
+palindromecircular(circular,start,size)
+
+
+#circularArray2
+def intersection(circle1,start1,size1,circle2,start2,size2):
+    ind1 = start1
+    ind2 = start2
+
+    c1=len(circle1)
+    c2=len(circle2)
+
+    lineararray = [0]*size1
+    k = 0
+
+    for i in range(size1):
+        ind2 = start2
+        for j in range(size2):
+            if circle1[ind1] == circle2[ind2]:
+               
+                lineararray[k]=circle2[ind2]
+                k+=1
+              
+            ind2 = (ind2+1)%c2
+        ind1 = (ind1+1)%c1
+
+    
+    common=[0]*k
+    for i in range(k):
+        common[i]=lineararray[i]
+    return(common)
+    
+print(intersection([40,50,0,0,0,10,20,30],5,5,[10,20,5,0,0,0,0,0,5,40,15,25],8,7))
+
+
